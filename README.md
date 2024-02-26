@@ -1,4 +1,6 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="print.png" width="400" alt="Laravel Logo"></a></p>
+<p align="center">
+    <a href="https://display-flex-example.netlify.app/" target="_blank"><img src="print.png" width="400" alt="Laravel Logo"></a>
+</p>
 
 ## Posicionando elemento na tela com display flex
 
@@ -13,4 +15,8 @@
 <p>use as teclas 
     <code>&crarr;</code> ou <code>space</code>
     para centralizar o quadrado.
+</p>
+
+<p>
+    <a href="https://display-flex-example.netlify.app/" target="_blank">Acessar projeto</a>
 </p>
