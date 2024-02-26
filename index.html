@@ -1,212 +1,42 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>DISPLAY FLEX EXAMPLE</title>
-</head>
-<body id="body">
-    <div class="area-square" id="area">
-        <div class="square" id="square">
-            <img src="https://laravel.com/img/logomark.min.svg" alt="laravel logo" srcset="">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>DISPLAY FLEX EXAMPLE</title>
+        <link rel="stylesheet" href="style.css">
+    </head>
+    <body id="body">
+        <div class="area-square" id="area">
+            <div class="square" id="square">
+                <img src="https://laravel.com/img/logomark.min.svg" alt="laravel logo" srcset="">
+            </div>
         </div>
-    </div>
-    <div class="show-style">
-        <p>use as teclas 
-            <code>&larr;</code>
-            <code>&rarr;</code>
-            <code>&uarr;</code>
-            <code>&darr;</code>
-            para mover o quadrado na tela.
-        </p>
-        <p>use as teclas 
-            <code>&crarr;</code> ou <code>space</code>
-            para centralizar o quadrado.
-        </p>
-        <pre>
-            <code>
-                #area {
-                    &nbsp;&nbsp;&nbsp;display: flex;
-                    &nbsp;&nbsp;&nbsp;flex-direction: row;
-                    &nbsp;&nbsp;&nbsp;min-height: 100vh;
-                    &nbsp;&nbsp;&nbsp;width: 85%;
-                    &nbsp;&nbsp;&nbsp;align-items: <span id="positionAlign"></span>;
-                    &nbsp;&nbsp;&nbsp;justify-content: <span id="positionContent"></span>;
-                }
-            </code>
-        </pre>
-    </div>
-</body>
-
-<style type="text/css">
-    * {
-        padding: 0;
-        margin: 0;
-    }
-    body {
-        min-height: 100vh;
-        display: flex;
-        flex-direction: row;
-        background-color: rgb(23, 25, 35, 1);
-
-        p {
-            font-size: 18px;
-        }
-
-        .area-square {
-            display: flex;
-            flex-direction: row;
-            min-height: 100vh;
-            width: 85%;
-
-            .square {
-                display: flex;
-                align-items: center;
-                justify-content: center;
-                width: 200px;
-                height: 200px;
-                background-color: #fff;
-                border-radius: 5px;
-            }
-        }
-
-        .show-style {
-            display: flex;
-            background-color: rgba(56, 56, 56, 0.5);
-            border-radius: 15px;
-            width: 15%;
-            color: #fff;
-            margin: 15px;
-            padding: 15px;
-            flex-direction: column;
-            gap: 20px;
-
-            code {
-                white-space: pre-line;
-                span {
-                    color: red;
-                }
-            }
-        }
-
-    }
-</style>
-
-<script>
-    document.addEventListener('keydown', handleKeyDown);
-
-    const justifyContents = ['flex-start', 'center', 'flex-end'];
-    const alignItems = ['flex-start', 'center', 'flex-end'];
-
-    const element = document.getElementById('area')
-    element.style.justifyContent = justifyContents[1];
-    element.style.alignItems = alignItems[1];
-    document.getElementById("positionContent").innerText = justifyContents[1];
-    document.getElementById("positionAlign").innerHTML = alignItems[1];
-    
-    function handleKeyDown(event) {
-        digitPressed(event.keyCode)
-    }
-
-    function digitPressed(digit)
-    {
-        const element = document.getElementById('area')
-        let response = {
-            alignItems: alignItems[1],
-            justifyContents: justifyContents[1]
-        }
-        if (digit === 13 || digit === 32) {
-            response = digitEnterPressed(element)
-        }
-
-        if (digit === 40) {
-            response = digitArrowDownPressed(element)
-        }
-
-        if (digit === 37) {
-            response = digitArrowLeftPressed(element)
-        }
-
-        if (digit === 39) {
-            response = digitArrowRightPressed(element)
-        }
-
-        if (digit === 38) {
-            response = digitArrowUpPressed(element)
-        }
-
-        document.getElementById("positionAlign").innerHTML = response.alignItems
-        document.getElementById("positionContent").innerText = response.justifyContents
-    }
-
-    function digitEnterPressed(element) {
-        element.style.justifyContent = justifyContents[1];
-        element.style.alignItems = alignItems[1];
-        
-        return {
-            alignItems: alignItems[1],
-            justifyContents: justifyContents[1]
-        }
-        
-    }
-
-    function digitArrowDownPressed(element) {
-        const justifyContent = element.style.justifyContent;
-        const actualPosition = element.style.alignItems;
-        const findPosition = alignItems.findIndex(item => actualPosition === item);
-        const alignItem = alignItems[(findPosition + 1) % alignItems.length]
-        element.style.alignItems = alignItem;
-
-        return {
-            alignItems: alignItem,
-            justifyContents: justifyContent
-        }
-    }
-    
-    function digitArrowLeftPressed(element) {
-        const alignItem = element.style.alignItems;
-        const actualPosition = element.style.justifyContent;
-        const findPosition = justifyContents.findIndex(item => actualPosition === item);
-        let nextPosition = (findPosition - 1) % justifyContents.length;
-        if (nextPosition < 0) {
-            nextPosition = justifyContents.length - 1;
-        }
-        element.style.justifyContent = justifyContents[nextPosition]
-
-        return {
-            alignItems: alignItem,
-            justifyContents: justifyContents[nextPosition]
-        }
-    }
-
-    function digitArrowRightPressed(element) {
-        const alignItem = element.style.alignItems;
-        const actualPosition = element.style.justifyContent;
-        const findPosition = justifyContents.findIndex(item => actualPosition === item);
-        let nextPosition = (findPosition + 1) % justifyContents.length;
-        element.style.justifyContent = justifyContents[nextPosition]
-
-        return {
-            alignItems: alignItem,
-            justifyContents: justifyContents[nextPosition]
-        }
-    }
-
-    function digitArrowUpPressed(element) {
-        const justifyContent = element.style.justifyContent;
-        const actualPosition = element.style.alignItems;
-        let findPosition = alignItems.findIndex(item => actualPosition === item);
-        let nextPosition = (findPosition - 1) % justifyContents.length;
-        if (nextPosition < 0) {
-            nextPosition = justifyContents.length - 1;
-        }
-        element.style.alignItems = alignItems[nextPosition]
-
-        return {
-            alignItems: alignItems[nextPosition],
-            justifyContents: justifyContent
-        }
-    }
-</script>
-
+        <div class="show-style">
+            <p>use as teclas 
+                <code>&larr;</code>
+                <code>&rarr;</code>
+                <code>&uarr;</code>
+                <code>&darr;</code>
+                para mover o quadrado na tela.
+            </p>
+            <p>use as teclas 
+                <code>&crarr;</code> ou <code>space</code>
+                para centralizar o quadrado.
+            </p>
+            <pre>
+                <code>
+                    #area {
+                        &nbsp;&nbsp;&nbsp;display: flex;
+                        &nbsp;&nbsp;&nbsp;flex-direction: row;
+                        &nbsp;&nbsp;&nbsp;min-height: 100vh;
+                        &nbsp;&nbsp;&nbsp;width: 85%;
+                        &nbsp;&nbsp;&nbsp;align-items: <span id="positionAlign"></span>;
+                        &nbsp;&nbsp;&nbsp;justify-content: <span id="positionContent"></span>;
+                    }
+                </code>
+            </pre>
+        </div>
+        <script src="script.js"></script>
+    </body>
 </html>
